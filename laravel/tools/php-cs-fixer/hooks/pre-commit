@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+PCF_DIR="${PROJECT_ROOT}/laravel/tools/php-cs-fixer"
+
+echo "php-cs-fixer pre commit hook start"
+
+PCF_CMD="${PCF_DIR}/vendor/bin/php-cs-fixer"
+if [ ! -x "${PCF_CMD}" ]; then
+    cat - <<EOT
+
+Please install php-cs-fixer, e.g.:
+
+./laravel/run.sh pcf:install
+
+EOT
+    exit 1
+fi
+
+HAS_ERROR=false
+FILES=$(git status --porcelain | grep -e '^ [AM]\(.*\).php$' | cut -c 3-)
+for file in $FILES
+do
+    "${PCF_CMD}" fix --path-mode=intersection --dry-run "${PROJECT_ROOT}/${file}" > /dev/null 2>&1
+    if [ $? != 0 ]; then
+        echo -e "    please, cs fix to ${file}"
+        HAS_ERROR=true
+    fi
+done
+
+if "${HAS_ERROR}"; then
+    echo -e "Commit fail please run php-cs-fixer"
+    exit 1
+fi
+
+echo "php-cs-fixer pre commit hook finish"

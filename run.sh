@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR=="$( cd "$( dirname "${0}" )" && pwd -P )"
-LARAVEL_DIR="${ROOT_DIR}/laravel"
+PROJECT_ROOT="$( cd "$( dirname "${0}" )" && pwd -P )"
+LARAVEL_DIR="${PROJECT_ROOT}/laravel"
 PCF_CMD="${LARAVEL_DIR}/tools/php-cs-fixer/vendor/bin/php-cs-fixer"
 LRS_CMD="${LARAVEL_DIR}/tools/larastan/vendor/bin/phpstan"
 
 ## utility
 function get-modified-files() {
     git diff --name-status master | grep -e '^[AM]\(.*\).php$' | cut -c 3- |
-        sed -e "s#^#${ROOT_DIR}/#"
+        sed -e "s#^#${PROJECT_ROOT}/#"
 }
 
 ## php-cs-fixer
