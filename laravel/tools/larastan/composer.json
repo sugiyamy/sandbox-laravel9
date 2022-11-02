@@ -1,0 +1,6 @@
+{
+    "require": {
+        "nunomaduro/larastan": "^2.0",
+        "laravel/laravel": "^9.3"
+    }
+}
