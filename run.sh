@@ -8,7 +8,7 @@ LRS_CMD="${LARAVEL_DIR}/tools/larastan/vendor/bin/phpstan"
 
 ## utility
 function get-modified-files() {
-    git diff --name-status master | grep -e '^[AM]\(.*\).php$' | cut -c 3- |
+    git diff --name-status main | grep -e '^[AM]\(.*\).php$' | cut -c 3- |
         sed -e "s#^#${PROJECT_ROOT}/#"
 }
 
@@ -90,7 +90,7 @@ function main() {
 
     cmd=""
     if (( $# >= 1 )); then
-        cmd=$1
+        cmd="${1}"
     fi
 
     case $cmd in
