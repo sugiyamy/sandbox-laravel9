@@ -1,0 +1,23 @@
+name: php-cs-fixer
+
+on: [ workflow_dispatch ]
+
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --prefer-dist --working-dir=laravel/tools/php-cs-fixer
+
+      - name: PHP-CS-Fixer Version
+        run: ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --version
+
+      - name: PHP-CS-Fixer Dry Run
+        run: ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --verbose --dry-run
