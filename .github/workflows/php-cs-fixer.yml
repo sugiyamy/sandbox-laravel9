@@ -25,4 +25,4 @@ jobs:
       - name: PHP-CS-Fixer Dry Run
         run: |
           echo ${{ steps.changed-files.outputs.all_changed_files }} | grep -e '.php$' |
-          xargs ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=./laravel/.php-cs-fixer.dist.php --verbose --dry-run
+          xargs --no-run-if-empty ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=./laravel/.php-cs-fixer.dist.php --verbose --dry-run
