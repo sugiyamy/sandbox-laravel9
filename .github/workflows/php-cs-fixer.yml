@@ -22,9 +22,7 @@ jobs:
         uses: tj-actions/changed-files@v34
       - id: test
         run: echo ${{ steps.changed-files.outputs.all_changed_files }}
-      - id: test2
-        run: echo ${{ steps.changed-files.outputs.all_changed_files }} | grep -e '.php$' || true
-#      - name: PHP-CS-Fixer Dry Run
-#        run: |
-#          git diff --name-status main | grep -e '^[AM]\(.*\).php$' | cut -c 3- |
-#          ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=./laravel/.php-cs-fixer.dist.php --verbose --dry-run $(${{ steps.changed-files.outputs.all_changed_files }})
+      - name: PHP-CS-Fixer Dry Run
+        run: |
+          echo ${{ steps.changed-files.outputs.all_changed_files }} | grep -e '.php$' |
+          xargs ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=./laravel/.php-cs-fixer.dist.php --verbose --dry-run
