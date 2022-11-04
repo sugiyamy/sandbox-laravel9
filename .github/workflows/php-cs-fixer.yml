@@ -20,4 +20,4 @@ jobs:
         run: ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --version
 
       - name: PHP-CS-Fixer Dry Run
-        run: ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=./laravel/php-cs-fixer.dist.php --verbose --dry-run
+        run: ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config=./laravel/.php-cs-fixer.dist.php --verbose --dry-run
