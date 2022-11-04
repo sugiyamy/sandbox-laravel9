@@ -1,0 +1,25 @@
+name: larastan
+
+on: [workflow_dispatch]
+
+jobs:
+  laravel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --prefer-dist --working-dir=laravel/tools/larastan
+
+      - name: phpstan Version
+        run: ./tools/larastan/vendor/bin/phpstan --version
+        working-directory: ./laravel
+
+      - name: phpstan Dry Run
+        run: ./tools/larastan/vendor/bin/phpstan analyse --memory-limit=1G --configuration phpstan.dist.neon
+        working-directory: ./laravel
