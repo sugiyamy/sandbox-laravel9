@@ -19,7 +19,7 @@ jobs:
       - name: PHP-CS-Fixer Version
         run: ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --version
       - id: changed-files
-        uses: tj-actions/changed-files
+        uses: tj-actions/changed-files@v34
       - id: test
         run: echo ${{ steps.changed-files.outputs.all_changed_files }}
       - id: test2
