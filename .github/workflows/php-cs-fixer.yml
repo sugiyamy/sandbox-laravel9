@@ -19,11 +19,11 @@ jobs:
       - name: PHP-CS-Fixer Version
         run: ./laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --version
       - id: changed-files
-        uses: tj-actions/changed-files@v18.5
+        uses: tj-actions/changed-files
       - id: test
         run: echo ${{ steps.changed-files.outputs.all_changed_files }}
       - id: test2
-        run: echo ${{ steps.changed-files.outputs.all_changed_files }} | grep -e '.php$'
+        run: echo ${{ steps.changed-files.outputs.all_changed_files }} | grep -e '.php$' || true
 #      - name: PHP-CS-Fixer Dry Run
 #        run: |
 #          git diff --name-status main | grep -e '^[AM]\(.*\).php$' | cut -c 3- |
