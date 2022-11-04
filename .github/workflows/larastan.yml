@@ -18,7 +18,6 @@ jobs:
 
       - name: phpstan Version
         run: ./tools/larastan/vendor/bin/phpstan --version
-        working-directory: ./laravel
 
       - name: phpstan Dry Run
         run: ./tools/larastan/vendor/bin/phpstan analyse --memory-limit=1G --configuration phpstan.dist.neon
