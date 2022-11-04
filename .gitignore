@@ -18,3 +18,5 @@ yarn-error.log
 /.vscode
 
 /laravel/tools/*/vendor
+.php-cs-fixer.php
+.php-cs-fixer.cache
