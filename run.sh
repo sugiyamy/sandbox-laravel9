@@ -55,6 +55,10 @@ function pcf-install() {
 }
 
 ## larastan
+function lrs() {
+    "${LRS_CMD}" "${@}"
+}
+
 function lrs-analyse() {
     (
         cd "${LARAVEL_DIR}" &&
@@ -69,11 +73,16 @@ function lrs-gen-bl() {
     )
 }
 
-function lrs() {
-    "${LRS_CMD}" "${@}"
+function lrs-install() {
+    composer install --working-dir="${LRS_DIR}"
 }
 
 ## other
+function install() {
+    pcf-install
+    lrs-install
+}
+
 function help() {
     cat - <<EOT
 Usage:
@@ -124,8 +133,12 @@ function main() {
             lrs-analyse;;
         ("lrs:gen-bl")
             lrs-gen-bl;;
+        ("lrs:install")
+            lrs-install;;
         ("lrs")
             lrs "${@:2}";;
+        ("install")
+            install;;
         ("help")
             help;;
         (*)
