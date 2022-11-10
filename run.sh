@@ -6,7 +6,7 @@ LARAVEL_DIR="${PROJECT_ROOT}/laravel"
 
 ### php-cs-fixer
 PCF_DIR="${LARAVEL_DIR}/tools/php-cs-fixer"
-PCF_CMD="${PCF_DIR}/tools/php-cs-fixer/vendor/bin/php-cs-fixer"
+PCF_CMD="${PCF_DIR}/vendor/bin/php-cs-fixer"
 
 ### larastan
 LRS_DIR="${LARAVEL_DIR}/tools/larastan"
