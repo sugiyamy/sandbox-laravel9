@@ -25,7 +25,7 @@ function pcf() {
 
 function pcf-fix() {
     get-modified-files |
-        xargs "${PCF_CMD}" fix -v --config="${LARAVEL_DIR}/.php-cs-fixer.dist.php"
+        xargs "${PCF_CMD}" fix -r -v --config="${LARAVEL_DIR}/.php-cs-fixer.dist.php"
 }
 
 function pcf-fix-all() {
@@ -34,7 +34,7 @@ function pcf-fix-all() {
 
 function pcf-dry() {
     get-modified-files |
-        xargs "${PCF_CMD}" fix -v --dry-run --config="${LARAVEL_DIR}/.php-cs-fixer.dist.php"
+        xargs "${PCF_CMD}" fix -r -v --dry-run --config="${LARAVEL_DIR}/.php-cs-fixer.dist.php"
 }
 
 function pcf-dry-all() {
@@ -43,7 +43,7 @@ function pcf-dry-all() {
 
 function pcf-dry-diff() {
     get-modified-files |
-        xargs "${PCF_CMD}" fix -v --dry-run --diff --config="${LARAVEL_DIR}/.php-cs-fixer.dist.php"
+        xargs "${PCF_CMD}" fix -r -v --dry-run --diff --config="${LARAVEL_DIR}/.php-cs-fixer.dist.php"
 }
 
 function pcf-dry-diff-all() {
