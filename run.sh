@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
+## enviroment variables
 PROJECT_ROOT="$( cd "$( dirname "${0}" )" && pwd -P )"
 LARAVEL_DIR="${PROJECT_ROOT}/laravel"
-PCF_CMD="${LARAVEL_DIR}/tools/php-cs-fixer/vendor/bin/php-cs-fixer"
-LRS_CMD="${LARAVEL_DIR}/tools/larastan/vendor/bin/phpstan"
+
+### php-cs-fixer
+PCF_DIR="${LARAVEL_DIR}/tools/php-cs-fixer"
+PCF_CMD="${PCF_DIR}/tools/php-cs-fixer/vendor/bin/php-cs-fixer"
+
+### larastan
+LRS_DIR="${LARAVEL_DIR}/tools/larastan"
+LRS_CMD="${LRS_DIR}/vendor/bin/phpstan"
 
 ## utility
 function get-modified-files() {
@@ -56,7 +62,7 @@ function lrs-analyse() {
     )
 }
 
-function lrs-generate-baseline() {
+function lrs-gen-bl() {
     (
         cd "${LARAVEL_DIR}" &&
             "${LRS_CMD}" analyse --memory-limit=1G --configuration "${LARAVEL_DIR}/phpstan.dist.neon" --generate-baseline
@@ -81,6 +87,10 @@ Commands:
     pcf:dry-diff     dry run with diff changed files
     pcf:dry-diff-all dry run with diff all files
     pcf:install      install php-cs-fixer
+    lrs              run larastan(phpstan) with arguments
+    lrs:analyse      run larastan
+    lrs:gen-bl       generate basefile
+    lrs:install      install larastan
     help             show this message
 EOT
 }
@@ -103,7 +113,7 @@ function main() {
         ("pcf:dry-all")
             pcf-dry-all;;
         ("pcf:fix")
-            pcf-fix;;
+            pcf-fix ${@:2};;
         ("pcf:fix-all")
             pcf-fix-all;;
         ("pcf:install")
@@ -112,8 +122,8 @@ function main() {
             pcf "${@:2}";;
         ("lrs:analyse")
             lrs-analyse;;
-        ("lrs:generate-baseline")
-            lrs-generate-baseline;;
+        ("lrs:gen-bl")
+            lrs-gen-bl;;
         ("lrs")
             lrs "${@:2}";;
         ("help")
